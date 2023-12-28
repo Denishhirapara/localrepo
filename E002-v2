@@ -1,0 +1,36 @@
+
+class Product_list:
+    def __init__(self,name,code,category,price):
+        self.name=name
+        self.code=code
+        self.category=category
+        self.price=price
+        
+product1=Product_list("abc",2002,"cate1",100)
+product2=Product_list("def",2032,"cate2",101)
+product3=Product_list("ghi",2056,"cate3",111)
+product4=Product_list("jkl",2048,"cate4",121)
+product5=Product_list("mno",201,"cate5",489)
+product6=Product_list("pqr",2012,"cate6",789)
+product7=Product_list("vni",22,"cate7",899)
+product8=Product_list("vmi",202,"cate8",1099)
+product9=Product_list("mik",1102,"cate9",499)
+product10=Product_list("nvc",8902,"cate10",790)
+
+Product_list=[product1,product2,product3,product4,product5,product6,product7,product8,product9,product10]
+
+
+def my(Product):
+    return Product.price
+
+sort=sorted(Product_list,key=my)
+
+for i in sort:
+    print(i.name,i.code,i.category,i.price)
+    
+found=int(input("enter user code:"))
+for i in Product_list:
+    if i.code==found:
+        print(i.name,i.code,i.category,i.price)
+    else:
+        print("note found")

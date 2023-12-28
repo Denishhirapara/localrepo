@@ -1,0 +1,14 @@
+class category:
+    def __init__(self,name,code,no_of_products):
+        self.name=name
+        self.code=code
+        self.no_of_products=no_of_products
+        
+obj1=category("abc",10,5)
+obj2=category("def",6,10)
+obj3=category("ghi",8,9)
+
+obj=[obj1,obj2,obj3]
+
+for i in obj:
+    print(i.name,i.code,i.no_of_products)
