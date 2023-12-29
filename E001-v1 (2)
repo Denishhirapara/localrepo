@@ -31,9 +31,9 @@ product8=product("abm",10024,"gh1",405)
 product9=product("abx",10204,"gh1",620)
 product10=product("azc",24,"gh1",87)
 
-Product=[product1,product2,product3,product4,product5,product6,product7,product8,product9,product10]
+kk=[product1,product2,product3,product4,product5,product6,product7,product8,product9,product10]
 found=int(input("enter user code:"))
-for i in Product:
+for i in kk:
     if i.code==found:
         print(i.name,i.code,i.category,i.price)
     else:
@@ -53,18 +53,7 @@ def fun(r):
                 min=j
         r[i],r[min]=r[min],r[i]
         
-S= [
-product("abc",1024,"gh1",45),
-product("c",1089,"gh1",450),
-product("bc",102,"gh1",40),
-product("ac",104,"gh1",454),
-product("abc",124,"gh1",89),
-product("vabc",124,"gh1",5),
-product("abm",10024,"gh1",405),
-product("abx",10204,"gh1",620),
-product("azc",24,"gh1",87)
-    
-]
+S=(kk)
 
     
 fun(S)
@@ -82,18 +71,7 @@ def fun(r):
                 min=j
         r[i],r[min]=r[min],r[i]
         
-S= [
-product("abc",1024,"gh1",45),
-product("c",1089,"gh1",450),
-product("bc",102,"gh1",40),
-product("ac",104,"gh1",454),
-product("abc",124,"gh1",89),
-product("vabc",124,"gh1",5),
-product("abm",10024,"gh1",405),
-product("abx",10204,"gh1",620),
-product("azc",24,"gh1",87)
-    
-]
+S=(kk)
 
     
 fun(S)
