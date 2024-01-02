@@ -4,14 +4,16 @@ class category:
         self.code=code
         self.no_of_products=no_of_products
         
-obj1=category("abc",10,5)
-obj2=category("def",6,10)
-obj3=category("ghi",8,9)
-
-obj=[obj1,obj2,obj3]
-
-for i in obj:
-    print(i.name,i.code,i.no_of_products)
+    def __str__(self):
+        return f"{self.name}  {self.code}  {self.no_of_products}"
+    
+cat1=category("abc",10,5)
+cat2=category("def",6,10)
+cat3=category("ghi",8,9)
+print(cat1)
+print(cat2)
+print(cat3)
+        
 
 class product:
     def __init__(self,name,code,category,price):
@@ -20,24 +22,29 @@ class product:
         self.category=category
         self.price=price
         
-product1=product("abc",1024,"gh1",45)
-product2=product("c",1089,"gh1",450)
-product3=product("bc",102,"gh1",40)
-product4=product("ab",104,"gh1",47)
-product5=product("ac",104,"gh1",454)
-product6=product("abc",124,"gh1",89)
-product7=product("vabc",124,"gh1",5)
-product8=product("abm",10024,"gh1",405)
-product9=product("abx",10204,"gh1",620)
-product10=product("azc",24,"gh1",87)
+        
+product1=product("abc",1024,cat1,45)
+product2=product("c",1089,cat2,450)
+product3=product("bc",102,cat3,40)
+product4=product("ab",104,cat3,47)
+product5=product("ac",104,cat1,454)
+product6=product("abc",124,cat2,89)
+product7=product("vabc",124,cat1,5)
+product8=product("abm",10024,cat3,405)
+product9=product("abx",10204,cat2,620)
+product10=product("azc",24,cat1,87)
+
 
 kk=[product1,product2,product3,product4,product5,product6,product7,product8,product9,product10]
+
 found=int(input("enter user code:"))
+
 for i in kk:
     if i.code==found:
         print(i.name,i.code,i.category,i.price)
     else:
         print("note found")
+
 
 def get_price(product):
     return product.price
@@ -47,11 +54,9 @@ def get_price(product):
 def fun(r):
     n=len(r)
     for i in range(n-1):
-        min=i
         for j in range(i+1,n):
-            if get_price(r[j])< get_price(r[min]):
-                min=j
-        r[i],r[min]=r[min],r[i]
+            if get_price(r[j])< get_price(r[i]):
+                r[i],r[j]=r[j],r[i]
         
 S=(kk)
 
@@ -59,17 +64,15 @@ S=(kk)
 fun(S)
 
 for pro in S:
-    print(pro.name,pro.category,pro.code,pro.price)
+    print(pro.name,pro.code,pro.category,pro.price)
 print()
         
 def fun(r):
     n=len(r)
     for i in range(n-1):
-        min=i
         for j in range(i+1,n):
-            if get_price(r[j])> get_price(r[min]):
-                min=j
-        r[i],r[min]=r[min],r[i]
+            if get_price(r[j])> get_price(r[i]):
+                r[i],r[j]=r[j],r[i]
         
 S=(kk)
 
@@ -77,7 +80,7 @@ S=(kk)
 fun(S)
 
 for pro in S:
-    print(pro.name,pro.category,pro.code,pro.price)
+    print(pro.name,pro.code,pro.category,pro.price)
     
                 
 
