@@ -1,86 +1,81 @@
 class category:
-    def __init__(self,name,code,no_of_products):
-        self.name=name
-        self.code=code
-        self.no_of_products=no_of_products
-        
-    def __str__(self):
-        return f"{self.name}  {self.code}  {self.no_of_products}"
+    def __init__(self,name,code):
+        self.name = name
+        self.code = code
+        self.no_of_product =0
     
-cat1=category("abc",10,5)
-cat2=category("def",6,10)
-cat3=category("ghi",8,9)
-print(cat1)
-print(cat2)
-print(cat3)
-        
+    def __str__(self):
+        return f"{self.name}  {self.code}  {self.no_of_product}"
 
 class product:
     def __init__(self,name,code,category,price):
-        self.name=name
-        self.code=code
-        self.category=category
-        self.price=price
-        
-        
-product1=product("abc",1024,cat1,45)
-product2=product("c",1089,cat2,450)
-product3=product("bc",102,cat3,40)
-product4=product("ab",104,cat3,47)
-product5=product("ac",104,cat1,454)
-product6=product("abc",124,cat2,89)
-product7=product("vabc",124,cat1,5)
-product8=product("abm",10024,cat3,405)
-product9=product("abx",10204,cat2,620)
-product10=product("azc",24,cat1,87)
+        self.name = name
+        self.code = code
+        self.category = category
+        self.price = price
+
+    def get_price(self):
+            return self.price
+
+    def dsort(self, k):
+        n = len(k)
+        for i in range(n):
+            for j in range(i + 1, n):
+                if k[j].get_price() < k[i].get_price():
+                    k[i], k[j] = k[j], k[i]        
+
+    def asort(self, k):
+        n= len(k)
+        for i in range(n):
+            for j in range(i + 1, n):
+                if k[j].get_price() > k[i].get_price():
+                    k[i], k[j] = k[j], k[i]
+
+    def search(self,pro):
+        se = int(input("Enter the code: "))
+        for pro in pro:
+            if pro.code == se:
+                print(pro.name, pro.code, pro.category, pro.price)
+
+cat1=category("abc",10)
+cat2=category("def",5)
+cat3=category("wsf",2)
 
 
-kk=[product1,product2,product3,product4,product5,product6,product7,product8,product9,product10]
+pro1=product("aes",10,cat1,150)
+pro2=product("rty",101,cat2,15)
+pro3=product("vvi",750,cat3,10)
+pro4=product("mdb",110,cat1,250)
+pro5=product("ioj",194,cat3,154)
+pro6=product("mvn",130,cat1,60)
+pro7=product("wnc",17,cat2,50)
+pro8=product("mdn",46,cat3,159)
+pro9=product("avx",90,cat1,160)
+pro10=product("pqr",73,cat2,51)
 
-found=int(input("enter user code:"))
+k=[pro1,pro2,pro3,pro4,pro5,pro6,pro7,pro8,pro9,pro10]
 
-for i in kk:
-    if i.code==found:
-        print(i.name,i.code,i.category,i.price)
-    else:
-        print("note found")
+for product in k:
+    product.category.no_of_product += 1
 
-
-def get_price(product):
-    return product.price
-
-# low to high price list
-
-def fun(r):
-    n=len(r)
-    for i in range(n-1):
-        for j in range(i+1,n):
-            if get_price(r[j])< get_price(r[i]):
-                r[i],r[j]=r[j],r[i]
-        
-S=(kk)
-
+print(cat1)
+print(cat2)    
+print(cat3)
     
-fun(S)
 
-for pro in S:
-    print(pro.name,pro.code,pro.category,pro.price)
-print()
+
+pro1.dsort(k)
+for g in k:
+    print(g.name,g.code,g.category,g.price)
+
+pro1.asort(k)
+for g in k:
+    print(g.name,g.code,g.category,g.price)
+
+pro2.search(k)
+
+
+
         
-def fun(r):
-    n=len(r)
-    for i in range(n-1):
-        for j in range(i+1,n):
-            if get_price(r[j])> get_price(r[i]):
-                r[i],r[j]=r[j],r[i]
-        
-S=(kk)
-
-    
-fun(S)
-
-for pro in S:
-    print(pro.name,pro.code,pro.category,pro.price)
-    
                 
 
