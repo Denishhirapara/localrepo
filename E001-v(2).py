@@ -150,6 +150,8 @@ pro_list = [product1, product2, product3, product4, product5, product6, product7
                 product17,product18,product19]
 
 
+product1.Lsort(pro_list)
+
 #update the product list
 for pro in pro_list:
     pro.category.no_of_products+=1
@@ -164,7 +166,10 @@ print()
 
 #  low to high price
 print(" <......low to high price.....>")
+
 product1.Lsort(pro_list)
+
+
 for pro in pro_list:
     print(f"Name:  {pro.name}  Code:  {pro.code}  Category:  {pro.category}  price:  {pro.price}")
 
@@ -196,4 +201,6 @@ print()
 
 #Search product by code
 print("<....Searching product by code.....>")
+
 product1.search(pro_list)
+
