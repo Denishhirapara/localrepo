@@ -1,93 +1,148 @@
-class product:
-    def __init__(self, name, code, category, price,stock_at_locations):
+class Category:
+    def __init__(self, name, code, parent=None):
+        self.name = name
+        self.code = code
+        self.parent = parent
+        self.products = []
+
+    def __str__(self):
+        return f"{self.name} {self.code} {(self.products)}"
+
+
+class Product:
+    def __init__(self, name, code, category, price, stock_at_locations):
         self.name = name
         self.code = code
         self.category = category
         self.price = price
-        self.stock_at_location = stock_at_locations
+        self.stock_at_locations = stock_at_locations
 
     def __str__(self):
-        return f"{self.name} {self.code} {self.category}  {self.price}  {self.stock_at_location}"
+        locations = '   -->>   '.join([f"{location.name} ({location.code}): {quantity}" for location, quantity in self.stock_at_locations.items()])
+        return f"Product name: {self.name}  Code: {self.code}  Category: {self.category.name}  Price: {self.price}  Stock at Locations: {locations}"
+
+    def move(self, from_location, to_location, quantity):
+        try:
+            if self.stock_at_locations[from_location] >= quantity:
+
+                new_movement = Movement(from_location, to_location, self, quantity)
+
+                Movement.movements_list.append(new_movement)
 
 
-#create one class name locaiton
-class Location():
-    def __init__(self,name,code):
-        self.name=name
-        self.code=code
+                self.stock_at_locations[from_location] -= quantity
+
+                if to_location in self.stock_at_locations:
+
+                    self.stock_at_locations[to_location] += quantity
+                else:
+
+                    self.stock_at_locations[to_location] = quantity
+
+                # Print a success message
+                print(f"Move {quantity} units of {self.name} from {from_location.name} to {to_location.name}")
+            else:
+
+                raise ValueError(f"stock is not avilable")
+        except KeyError:
+
+            raise ValueError(f"stock is not avilable")
+    @staticmethod
+    def display_details(self):
+        print(self)
+        print()
+
+
+    @classmethod
+    def stock_information(self,location_list, product_list):
+        for location in location_list:
+            print(f"{location.name}:")
+            location_products = [product for product in pro_list if location in product.stock_at_locations]
+            for product in location_products:
+                print(f"  {product.name} ({product.code}): {product.stock_at_locations[location]}")
+            print()
+
+
+class Location:
+    def __init__(self, name, code):
+        self.name = name
+        self.code = code
 
     def __str__(self):
-        return f"{self.name}  {self.code}"
+        return f"{self.name} {self.code}"
 
 
+class Movement:
+    movements_list = []
 
-#create one class name movement
-class movement():
-    movement_list=[]
-    def __init__(self,from_location,to_location,product,quantity):
-        self.from_location=from_location
-        self.to_location=to_location
-        self.product=product
-        self.quantity=quantity
-        # movement.movement_list.append(self)
+    def __init__(self, from_location, to_location, product, quantity):
+        self.from_location = from_location
+        self.to_location = to_location
+        self.product = product
+        self.quantity = quantity
 
-    def  __str__(self):
+
+    def __str__(self):
         return f"{self.from_location}  {self.to_location}  {self.product}  {self.quantity}"
 
-#create a static method
+    @staticmethod
     def movements_by_product(product):
-         return [movement for movement in movement.movement_list if movement.product == product]
+        return [movement for movement in Movement.movements_list if movement.product == product]
+
+    @classmethod
+    def product_movements(self,product):
+        for product in pro_list:
+            movements = set(Movement.movements_by_product(product))
+            print(f"Product: {product.name} ({product.code})")
+            for movement in movements:
+                    print(f"  {movement}")
+                    print()
 
 
-# Create 4 different location objects
-man1 = Location("amreli", 1)
-man2 = Location("gondal", 2)
-man3 = Location("bagasara", 3)
-man4 = Location("rajkot", 4)
+# Creating categories
+vehicle = Category("Creta", 1014)
+car = Category("Verna", 1015, parent=vehicle)
+petrol = Category("City", 1016, parent=car)
+metro = Category("Odii", 1017, parent=petrol)
+railway = Category("I20", 1018, parent=metro)
 
-# five different product object
+# Creating locations
+loc1 = Location("Kanpur", 2012)
+loc2 = Location("Baroda", 2013)
+loc3 = Location("Gondal", 2014)
+loc4 = Location("Surat", 2015)
 
-pro1 = product("laptop","g2","cate1",50000,{man1: 56,man2: 2,man3: 80,man4: 35})
-pro2 = product("keyboard","a1","cate2",400,{man1: 5,man2: 50,man3: 8,man4: 45})
-pro3 = product("mouce","m2","cate3",105,{man1: 75,man2: 300,man3: 31,man4: 95})
-pro4 = product("iphone","ip6","cate4",45000,{man1: 6,man2: 23,man3: 10,man4: 3})
-pro5 = product("camera","c7","cate5",120000,{man1: 9,man2: 52,man3 : 0,man4: 61})
+# Creating products
+product20 = Product("Product20", 1125, petrol, 450, {loc1: 45})
+product21 = Product("Product21", 1055, vehicle, 540, {loc2: 13})
+product22 = Product("Product22", 1452, car, 700, {loc3: 23})
+product23 = Product("Product23", 1305, railway, 250, {loc4: 15})
+product24 = Product("Product24", 6310, metro, 100, {loc1: 20})
 
-pro_list = [pro1,pro2,pro3,pro4,pro5]
-loc_list = [man1,man2,man3,man4]
+pro_list= [product20, product21, product22, product23, product24]
 
-# create four different movement objects
+loc_list=[loc1,loc2,loc3,loc4]
+# Displaying product details
 
-mov1 = movement("location1","location2","product1",50)
-mov2 = movement("location2","location3","product4",50)
-mov3 = movement("location3","location4","product5",50)
-mov4 = movement("location4","location1","product2",50)
-mov4 = movement("location1","location3","product2",50)
-
-
-#print the product_list
-
+print("---display details---")
 for product in pro_list:
-    product_movements = movement.movements_by_product(product)
-    print(f"{product.name} ({product.code}):")
+    Product.display_details(product)
 
-    for movement in product_movements:
-        print(f"  -From-  {movement.from_location.name} To- {movement.to_location.name} Stock- {movement.quantity}")
-print()
-
-for product in pro_list:
-    print(f"{product.name} ({product.code}):")
-
-    for location, stock in product.stock_at_location.items():
-        print(f"  From--   {location.name}  Stock--  {stock}")
-
-# for location in [pro1, pro2, pro3, pro4]:
-#     print(f"{location.name} ({location.code}):")
-#     for product in [pro1, pro2, pro3, pro4, pro5]:
-#         if location in product.stock_at_location:
-#             stock = product.stock_at_location[location]
-#             print(f"  {product.name} ({product.code}) - Stock: {stock}")
+print(" ")
 
 
+# Moving products from one location to another
+product20.move(loc1, loc2,5)
+product21.move(loc2, loc3, 7);
+product22.move(loc3, loc4, 10)
+product23.move(loc4, loc1, 9)
+product24.move(loc1, loc3, 3)
 
+# Displaying movements of each product
+print("----updat stock at locations -----")
 
+Product.stock_information(loc_list,pro_list)
+
+print("---movement all detail---")
+
+Movement.product_movements(product)
