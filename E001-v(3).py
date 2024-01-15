@@ -141,7 +141,7 @@ product24.move(loc1, loc3, 3)
 # Displaying movements of each product
 print("----updat stock at locations -----")
 
-Product.stock_information(loc_list,pro_list)
+product20.stock_information(loc_list,pro_list)
 
 print("---movement all detail---")
 

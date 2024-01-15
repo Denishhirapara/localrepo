@@ -26,7 +26,7 @@ class category:
 
 #display details of name ,code, display name,no of products etc
     def display_details(self):
-        print(f"Category Code:{self.name} ({self.code})")
+        print(f"Category Name:  {self.name}   Code:  ({self.code})")
         print(f"Display Name: {self.display_name}")
         print(f"No. of products: {self.no_of_products}")
 
@@ -41,14 +41,7 @@ class product:
         self.code = code
         self.category = category
         self.price = price
-
-#get the product price
-    # def get_price(self):
-    #     return self.price
-
-# get the category name
-#     def get_name(self):
-#         return self.category.name
+       
 
 #sort the product list by category name
     def sort_products_by_name(self,pro_list):
@@ -88,6 +81,7 @@ car =category("scorpio", 15,parent=vehicle)
 petrol =category("camrige", 101,parent=car)
 bullet=category("enduver",7,parent=petrol)
 honda=category("forchu",80,parent=bullet)
+
 
 #3 object category
 metro= category("bugati", 10511)
@@ -135,19 +129,10 @@ petrol.add_product(product17)
 petrol.add_product(product18)
 petrol.add_product(product19)
 
-#
-# bullet.add_product(product1)
-# bullet.add_product(product4)
-# bullet.add_product(product6)
-#
-# honda.add_product(product3)
-# honda.add_product(product7)
-# honda.add_product(product10)
-
 
 pro_list = [product1, product2, product3, product4, product5, product6, product7, product8,
-                product9, product10,product11,product12,product13,product14,product15,product16,
-                product17,product18,product19]
+                product9, product10,product11,product12,product13,product14,product15,product16,product17
+                ,product18,product19]
 
 
 product1.Lsort(pro_list)

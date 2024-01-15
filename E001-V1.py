@@ -1,5 +1,5 @@
-class category:
-    def __init__(self, name, code):
+class category():
+   def __init__(self, name, code):
         self.name = name
         self.code = code
         self.no_of_products=0
@@ -56,12 +56,15 @@ product10 = Product("kk", 1020, cat3, 900)
 
 product_list = [product1, product2, product3, product4, product5, product6, product7, product8, product9, product10]
 
+
 for product in product_list:
     product.category.no_of_products += 1
 
-    # Print category info with its no_of_products
+# Print category info with its no_of_products
 for category in [cat1, cat2, cat3]:
     print(f" category_name: {category.name}  category_code:{category.code}   category_no_of_product: {category.no_of_products}")
+    
+
 
 
 #  low to high
