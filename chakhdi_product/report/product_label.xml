@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="product.report_simple_label2x7">
+            <table style="border: 1px solid black; width: 10.16cm; height: 5.08cm;">
+                <tr>
+                    <td colspan="2" style="font-size: 12px; vertical-align: middle; height: 2rem;" class="text-center">
+                        <t t-if="product.company_reference">
+                            <strong t-esc="product.company_reference[:50] + '..' if len(product.company_reference) > 50 else product.company_reference"
+                                    style="font-size: 12px;"/>
+                            <br/>
+                        </t>
+                        <t t-else="">
+                            <strong t-esc="product.name[:50] + '..' if len(product.name) > 50 else product.name"
+                                    style="font-size: 12px;"/>
+                            <br/>
+                        </t>
+                    </td>
+                </tr>
+                <tr style="border: 1px solid black; width: 100%;">
+                    <td rowspan="2" style="border: 1px solid black; vertical-align: middle; width: 70%; font-size: 40px;"
+                        class="text-center">
+                        <t t-if="product.barcode">
+                            <strong t-esc="product.barcode"/>
+                        </t>
+                    </td>
+
+                    <td style="border: 1px solid black; vertical-align: middle; width: 30%; font-size: 16px; height: 1.5rem;"
+                        class="text-center">
+                        <t t-if="product.lst_price == 0.0">
+                            <strong>****</strong>
+                        </t>
+                        <t t-else="">
+                            <strong t-field="product.lst_price"
+                                    t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"/>
+                        </t>
+                    </td>
+                </tr>
+                <tr style="border: 1px solid black;">
+                    <td style="border: 1px solid black; vertical-align: middle; font-size: 16px;" class="text-center">
+                        <t t-if="product.product_commission">
+                            <strong t-esc="product.product_commission"/>
+                        </t>
+                    </td>
+                </tr>
+                <tr style="border: 1px solid black; width: 100%;">
+                    <td style="border: 1px solid black; vertical-align: middle; font-size: 14px; width: 70%;"
+                        class="text-center">
+                        <t t-if="product.product_style">
+                            <strong t-esc="product.product_style[:30] + '..' if len(product.product_style) > 30 else product.product_style"/>
+                        </t>
+                        <br/>
+                    </td>
+                    <td style="border: 1px solid black; vertical-align: middle; font-size: 14px; width: 30%;"
+                        class="text-center">
+                        <t t-if="product.product_color">
+                            <strong t-esc="product.product_color"/>
+                        </t>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="height: 5rem; vertical-align: middle; border: 1px solid black;" class="text-center">
+                        <t t-if="product.barcode">
+                            <img alt="Barcode" t-if="len(product.barcode) == 13"
+                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(product.barcode or ''), 600, 150)"
+                                 style="width: 100%; height: 4rem; border-right: 1px solid black;"/>
+                            <img alt="Barcode" t-elif="len(product.barcode) == 8"
+                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(product.barcode or ''), 600, 150)"
+                                 style="width: 100%; height: 4rem; border-right: 1px solid black;"/>
+                            <img alt="Barcode" t-else=""
+                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(product.barcode or ''), 600, 150)"
+                                 style="width: 100%; height: 4rem; border-right: 1px solid black;"/>
+                        </t>
+                        <t t-else="">
+                            <span class="text-muted">No Barcode Available</span>
+                        </t>
+                    </td>
+                </tr>
+            </table>
+        </template>
+
+        <record id="paperformat_product_label" model="report.paperformat">
+            <field name="name">Paperformat Product Label</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">50</field>
+            <field name="page_width">101</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="product.report_product_template_label_2x7" model="ir.actions.report">
+            <field name="name">Products Labels</field>
+            <field name="model">product.template</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">product.report_producttemplatelabel2x7</field>
+            <field name="report_file">product.report_producttemplatelabel2x7</field>
+            <field name="print_report_name">'Products Labels - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="product.model_product_template"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_product_label"/>
+        </record>
+
+    </data>
+</odoo>
